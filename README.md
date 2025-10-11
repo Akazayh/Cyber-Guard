@@ -2,15 +2,21 @@
 
 ## 📸 Screenshots
 
-### Main Interface
+### 🖥 Main Menu
 ![Main](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/main.png)
 
-### Network Scanner
+### 👁 Network Scanner
 ![Scanner](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/network_scaner.png)
 
-### IDS Detection
+### 🚨 IDS Monitor
 ![IDS](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/IDS.png)
 
+### 🔍 Log Analyzer
+![Analyzer Logs]()
+
+### 🔥 Firewall Manager
+
+![Firewall Manger]()
 A powerful, all-in-one cybersecurity tool written in Python that provides network scanning, intrusion detection, log analysis, and firewall management capabilities.
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
