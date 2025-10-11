@@ -2,20 +2,20 @@
 
 ## 📸 Screenshots
 
-### Main Menu
-![Main Interface](main.png)
+### 🖥 Main Menu
+<img src="screenshots/main.png" width="400" />
 
-### Network Scanner  
-![Network Scanner](network_scaner.png)
+### 🔍 Network Scanner
+<img src="screenshots/network_scaner.png" width="400" />
 
-### IDS Monitor Traffic
-![IDS Detection](IDS.png)
+### 🚨 IDS Monitor
+<img src="screenshots/IDS.png" width="400" />
 
-### Analyzer Logs
-![Analyzer Logs](analyze_logs.png)
+### 📊 Log Analyzer
+<img src="screenshots/analyze_logs.png" width="400" />
 
-### Firewall Manager
-![Firewall Manager](firewall_manager.png)
+### 🔥 Firewall Manager
+<img src="screenshots/firewall_manager.png" width="400" />
 
 A powerful, all-in-one cybersecurity tool written in Python that provides network scanning, intrusion detection, log analysis, and firewall management capabilities.
 
