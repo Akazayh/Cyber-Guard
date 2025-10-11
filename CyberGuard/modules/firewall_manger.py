@@ -182,7 +182,7 @@ def block_ip_implementation(ip, action):
 		return result.returncode == 0
 	
 	except Exception as e:
-		print(Fore.RED + f"❌ Error: {e}")
+		print(Fore.RED + f" Error: {e}")
 		return False
 
 def block_port_implementation(port, protocol, action):
@@ -330,31 +330,31 @@ while True:
 	elif choice=="99":
 		print(Fore.YELLOW + Style.BRIGHT + """
 ╔══════════════════════════════════════════════════════════════════╗
-║                   HELP - FIREWALL MANAGER                       ║
+║                   HELP - FIREWALL MANAGER                        ║
 ╠══════════════════════════════════════════════════════════════════╣
-║ [1] Allow or block specific IP addresses                        ║
+║ [1] Allow or block specific IP addresses                         ║
 ║     ➤ Block/Unblock individual IPs                              ║
 ║     ➤ List currently blocked IPs                                ║
-║     ➤ Uses iptables for implementation                         ║
+║     ➤ Uses iptables for implementation                          ║
 ║                                                                  ║
-║ [2] Allow or block specific ports                               ║
+║ [2] Allow or block specific ports                                ║
 ║     ➤ Block/Unblock individual ports                            ║
 ║     ➤ Block/Unblock port ranges                                 ║
-║     ➤ Support for TCP/UDP protocols                            ║
+║     ➤ Support for TCP/UDP protocols                             ║
 ║     ➤ List currently blocked ports                              ║
 ║                                                                  ║
-║ [3] Allow or block specific protocols                           ║
+║ [3] Allow or block specific protocols                            ║
 ║     ➤ Block/Unblock entire protocols                            ║
 ║     ➤ Supported: TCP, UDP, ICMP                                 ║
 ║                                                                  ║
-║ [0] Exit                                                        ║
+║ [0] Exit                                                         ║
 ║     ➤ Exit with option to save rules                            ║
 ║                                                                  ║
-║ IMPORTANT NOTES:                                                ║
-║ • Requires sudo privileges                                      ║
-║ • Changes are temporary unless saved                            ║
-║ • Saving rules persists after reboot                            ║
-║ • Use carefully to avoid locking yourself out                   ║
+║ IMPORTANT NOTES:                                                 ║
+║ • Requires sudo privileges                                       ║
+║ • Changes are temporary unless saved                             ║
+║ • Saving rules persists after reboot                             ║
+║ • Use carefully to avoid locking yourself out                    ║
 ╚══════════════════════════════════════════════════════════════════╝
 """ + Style.RESET_ALL)
 		input(Fore.YELLOW + "\nPress Enter to continue..." + Style.RESET_ALL)
