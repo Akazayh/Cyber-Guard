@@ -12,11 +12,11 @@
 ![IDS](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/IDS.png)
 
 ### 🔍 Log Analyzer
-![Analyzer Logs]()
+![Analyzer Logs](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/analyze_logs.png)
 
 ### 🔥 Firewall Manager
+![Firewall Manger](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/firewall_manger.png)
 
-![Firewall Manger]()
 A powerful, all-in-one cybersecurity tool written in Python that provides network scanning, intrusion detection, log analysis, and firewall management capabilities.
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
