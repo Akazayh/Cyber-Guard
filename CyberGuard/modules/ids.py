@@ -1179,37 +1179,37 @@ while True:
 		os.system("clear")
 		print(Fore.RED + Style.BRIGHT + """
 ╔══════════════════════════════════════════════════════════════════╗
-║                     HELP - IDS MONITOR                          ║
+║                     HELP - IDS MONITOR                           ║
 ╠══════════════════════════════════════════════════════════════════╣
-║ [1] Local Device Monitoring (eth0)                              ║
+║ [1] Local Device Monitoring (eth0)                               ║
 ║     ➤ Monitor wired network interfaces                          ║
 ║     ➤ Detect: ARP spoofing, DNS spoofing                        ║
 ║     ➤ Detect: SYN/UDP/ICMP floods, port scanning                ║
 ║     ➤ Save sessions as log or PCAP format                       ║
 ║                                                                  ║
-║ [2] Wireless Monitoring Mode (wlan0 - monitor)                  ║
+║ [2] Wireless Monitoring Mode (wlan0 - monitor)                   ║
 ║     ➤ Monitor wireless networks (requires monitor mode)         ║
 ║     ➤ Detect: Deauth attacks, beacon floods                     ║
 ║     ➤ Detect: KRACK attacks, WPA handshakes                     ║
 ║     ➤ Target specific BSSID or SSID                             ║
 ║                                                                  ║
-║ [3] Logging & Alerting Configuration                            ║
-║     ➤ Configure alert sounds and thresholds                     ║
-║     ➤ Customize detection sensitivity                           ║
+║ 											                       ║
+║    										                       ║
+║   									                           ║
 ║                                                                  ║
-║ [00] Exit                                                       ║
+║ [00] Exit                                                        ║
 ║     ➤ Exit and restore network interfaces                       ║
 ║                                                                  ║
-║ DETECTION CAPABILITIES:                                         ║
-║ • ARP Spoofing    • DNS Spoofing    • SYN Flood                 ║
-║ • UDP Flood       • ICMP Flood      • Port Scan                 ║
-║ • Deauth Attacks  • Beacon Flood    • Probe Flood               ║
-║ • WPA Handshake   • KRACK Attack    • Evil Twin                 ║
+║ DETECTION CAPABILITIES:                                          ║
+║ • ARP Spoofing    • DNS Spoofing    • SYN Flood                  ║
+║ • UDP Flood       • ICMP Flood      • Port Scan                  ║
+║ • Deauth Attacks  • Beacon Flood    • Probe Flood                ║
+║ • WPA Handshake   • KRACK Attack    • Evil Twin                  ║
 ║                                                                  ║
-║ REQUIREMENTS:                                                   ║
-║ • Root privileges                                              ║
-║ • Wireless card supporting monitor mode                        ║
-║ • Python packages: scapy, colorama, rich, psutil               ║
+║ REQUIREMENTS:                                                    ║
+║ • Root privileges                                                ║
+║ • Wireless card supporting monitor mode                          ║
+║ • Python packages: scapy, colorama, rich, psutil                 ║
 ╚══════════════════════════════════════════════════════════════════╝
 """ + Style.RESET_ALL)
 		input(Fore.RED + "\nPress Enter to continue..." + Style.RESET_ALL)
