@@ -1,5 +1,18 @@
 # 🛡 CyberGuard - Comprehensive Security Toolkit
 
+## 📸 Screenshots
+
+### الواجهة الرئيسية
+![Main Interface](screenshots/main.png)
+### نتائج المسح
+![Network Scanner](screenshots/network_scaner.png)
+### كشف التسلل
+![IDS Detection](screenshots/IDS.png)
+
+![Analyzer Logs](screenshots/analyze_logs.png)
+
+![Firewall Manger](screenshots/firewall_manger.png)
+
 A powerful, all-in-one cybersecurity tool written in Python that provides network scanning, intrusion detection, log analysis, and firewall management capabilities.
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
