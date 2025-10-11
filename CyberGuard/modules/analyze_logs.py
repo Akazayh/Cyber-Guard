@@ -278,36 +278,36 @@ def choose_directory():
 		os.system("clear")
 		print(Fore.WHITE + Style.BRIGHT + """
 ╔══════════════════════════════════════════════════════════════════╗
-║                    HELP - LOG ANALYZER                          ║
+║                    HELP - LOG ANALYZER                           ║
 ╠══════════════════════════════════════════════════════════════════╣
-║ [1] Show Comprehensive Statistics                               ║
+║ [1] Show Comprehensive Statistics                                ║
 ║     ➤ Display detailed analysis of log file                     ║
-║     - Total lines, session entries, protocols                   ║
-║     - Attack types, IP addresses, time range                    ║
+║     - Total lines, session entries, protocols                    ║
+║     - Attack types, IP addresses, time range                     ║
 ║                                                                  ║
-║ [2] Search Log Entries                                          ║
+║ [2] Search Log Entries                                           ║
 ║     ➤ Search for specific keywords in log file                  ║
-║     - Case-insensitive search                                   ║
-║     - Shows matching lines with line numbers                    ║
+║     - Case-insensitive search                                    ║
+║     - Shows matching lines with line numbers                     ║
 ║                                                                  ║
-║ [3] Detect Anomalies & Security Issues                          ║
+║ [3] Detect Anomalies & Security Issues                           ║
 ║     ➤ Identify security threats and anomalies                   ║
-║     - Attack keyword detection                                  ║
-║     - Suspicious IP addresses                                   ║
-║     - Sample attack lines                                       ║
+║     - Attack keyword detection                                   ║
+║     - Suspicious IP addresses                                    ║
+║     - Sample attack lines                                        ║
 ║                                                                  ║
-║ [4] Export Analysis Report                                      ║
+║ [4] Export Analysis Report                                       ║
 ║     ➤ Generate comprehensive report file                        ║
-║     - Protocols and attack statistics                           ║
-║     - IP addresses and anomalies summary                        ║
+║     - Protocols and attack statistics                            ║
+║     - IP addresses and anomalies summary                         ║
 ║                                                                  ║
-║ [5] Change File                                                 ║
+║ [5] Change File                                                  ║
 ║     ➤ Select different log file to analyze                      ║
 ║                                                                  ║
-║ SUPPORTED LOG TYPES:                                            ║
-║ • Archives_IDS/ - Session archives                              ║
-║ • Detected_Attack/ - Security incident logs                     ║
-║ • Only .log files are supported                                 ║
+║ SUPPORTED LOG TYPES:                                             ║
+║ • Archives_IDS/ - Session archives                               ║ 
+║ • Detected_Attack/ - Security incident logs                      ║
+║ • Only .log files are supported                                  ║
 ╚══════════════════════════════════════════════════════════════════╝
 """ + Style.RESET_ALL)
 		input(Fore.WHITE + "\nPress Enter to continue..." + Style.RESET_ALL)
