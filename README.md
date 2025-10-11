@@ -3,13 +3,13 @@
 ## 📸 Screenshots
 
 ### Main Interface
-![Main]()
+![Main](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/main.png)
 
 ### Network Scanner
-![Scanner]()
+![Scanner](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/network_scaner.png)
 
 ### IDS Detection
-![IDS]()
+![IDS](https://github.com/Akazayh/Cyber-Guard/blob/main/CyberGuard/screenshots/IDS.png)
 
 A powerful, all-in-one cybersecurity tool written in Python that provides network scanning, intrusion detection, log analysis, and firewall management capabilities.
 
