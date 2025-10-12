@@ -75,17 +75,17 @@ as long as you *credit the original author: Yahya Zhar*.
 
 Important: This tool is designed for:
 
-· ✅ *Security research and education* 
-· ✅ *Authorized penetration testing* 
-· ✅ *Network administration and monitoring* 
-· ✅ *Cybersecurity training* 
+- *✅ Security research and education* 
+- *✅ Authorized penetration testing* 
+- *✅ Network administration and monitoring* 
+- *✅ Cybersecurity training* 
 
 ## ⚠ Warning ❌:
 
-· *Use only on networks you own or have explicit permission to test* 
-· *Unauthorized use may violate local laws and regulations* 
-· *The developers are not responsible for misuse or damage caused by this tool* 
-· *Always ensure compliance with applicable laws and regulations* 
+- *Use only on networks you own or have explicit permission to test* 
+- *Unauthorized use may violate local laws and regulations* 
+- *The developers are not responsible for misuse or damage caused by this tool* 
+- *Always ensure compliance with applicable laws and regulations* 
 
 ## 🛠 Installation
 
@@ -113,7 +113,7 @@ sudo python3 main.py
 
 - *Yahya Ezzhar*
 - *Developer* *&* *Cybersecurity Enthusiast*
--*📍* *Morocco*
+- *📍* *Morocco*
 
 ## 🫡 If you encounter any problem or error, please contact me.
 
