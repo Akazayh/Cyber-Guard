@@ -68,8 +68,7 @@ A powerful, all-in-one cybersecurity tool written in Python that provides networ
 ## 📜 License
 This project is licensed under the *MIT License*.
 
-You are *free to use, modify, and share* Cyber Guard in your own projects,
-as long as you *credit the original author: Yahya Zhar*.
+You are *free to use, modify, and share* Cyber Guard in your own projects.
 
 ## ⚠️ Disclaimer
 
