@@ -80,7 +80,7 @@ Important: This tool is designed for:
 · ✅ *Network administration and monitoring*
 · ✅ *Cybersecurity training*
 
-## ⚠ Warning:
+## ⚠ Warning ❌:
 
 · *Use only on networks you own or have explicit permission to test*
 · *Unauthorized use may violate local laws and regulations*
