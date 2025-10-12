@@ -97,7 +97,7 @@ Important: This tool is designed for:
 ### Quick Setup
 ```bash
 # Clone the repository
-git https://github.com/Akazayh/Cyber-Guard.git
+git clone https://github.com/Akazayh/Cyber-Guard.git
 cd CyberGuard
 
 # Install dependencies
