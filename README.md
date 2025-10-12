@@ -91,7 +91,7 @@ This tool is intended for **educational and authorized security testing purposes
 ```bash
 # Clone the repository
 git clone https://github.com/Akazayh/Cyber-Guard.git
-cd CyberGuard
+cd Cyber-Guard
 
 # Install dependencies
 sudo apt update
