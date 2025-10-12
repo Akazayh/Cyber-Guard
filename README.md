@@ -71,21 +71,21 @@ This project is licensed under the *MIT License*.
 You are *free to use, modify, and share* Cyber Guard in your own projects,
 as long as you *credit the original author: Yahya Zhar*.
 
-⚠ Disclaimer
+## ⚠ Disclaimer
 
 Important: This tool is designed for:
 
-· ✅ Security research and education
-· ✅ Authorized penetration testing
-· ✅ Network administration and monitoring
-· ✅ Cybersecurity training
+· ✅ *Security research and education*
+· ✅ *Authorized penetration testing*
+· ✅ *Network administration and monitoring*
+· ✅ *Cybersecurity training*
 
-⚠ Warning:
+## ⚠ Warning:
 
-· Use only on networks you own or have explicit permission to test
-· Unauthorized use may violate local laws and regulations
-· The developers are not responsible for misuse or damage caused by this tool
-· Always ensure compliance with applicable laws and regulations
+· *Use only on networks you own or have explicit permission to test*
+· *Unauthorized use may violate local laws and regulations*
+· *The developers are not responsible for misuse or damage caused by this tool*
+· *Always ensure compliance with applicable laws and regulations*
 
 ## 🛠 Installation
 
@@ -109,15 +109,15 @@ pip3 install -r requirements.txt
 sudo python3 main.py
 ```
 
-###👤 Author
+## 👤 Author
 
 - *Yahya Ezzhar*
 - *Developer* *&* *Cybersecurity Enthusiast*
 -*📍* *Morocco*
 
-###🫡 If you encounter any problem or error, please contact me.
+## 🫡 If you encounter any problem or error, please contact me.
 
-###⭐ If you like this project, give it a star on GitHub to support Cyber Guard!
+## ⭐ If you like this project, give it a star on GitHub to support Cyber Guard!
 
 
 
