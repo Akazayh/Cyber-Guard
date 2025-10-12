@@ -71,21 +71,14 @@ This project is licensed under the *MIT License*.
 You are *free to use, modify, and share* Cyber Guard in your own projects,
 as long as you *credit the original author: Yahya Zhar*.
 
-## ⚠ Disclaimer
+## ⚠️ Disclaimer
 
-Important: This tool is designed for:
+This tool is intended for **educational and authorized security testing purposes only**.
 
-- *✅ Security research and education* 
-- *✅ Authorized penetration testing* 
-- *✅ Network administration and monitoring* 
-- *✅ Cybersecurity training* 
-
-## ⚠ Warning ❌:
-
-- *Use only on networks you own or have explicit permission to test* 
-- *Unauthorized use may violate local laws and regulations* 
-- *The developers are not responsible for misuse or damage caused by this tool* 
-- *Always ensure compliance with applicable laws and regulations* 
+- ✅ For network administrators, cybersecurity students, and ethical hackers  
+- ❌ Do **not** use it on networks you don’t own or without explicit permission  
+- ⚖️ Unauthorized usage may violate local laws and regulations  
+- 🧠 The developer (Yahya Ezzhar) is **not responsible** for any misuse or damage caused
 
 ## 🛠 Installation
 
