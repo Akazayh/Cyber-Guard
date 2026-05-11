@@ -1,3 +1,4 @@
+from utils import run_command_safe, validate_filename, ensure_directories
 from scapy.all import *
 from datetime import datetime
 from scapy.layers.inet import IP, TCP, UDP, ICMP
@@ -23,16 +24,19 @@ import threading
 import queue
 import shutil
 import os
+import logging
 os.environ["SCAPY_COLORED"] = "0"
 import time
 import psutil
 import sys
 import warnings
 import contextlib
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 warnings.filterwarnings("ignore")
 
 init(autoreset=True)
-os.system("clear")
+logging.basicConfig(filename='ids_tool.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Constants
 packet_buffer = deque(maxlen=1000)
@@ -57,6 +61,8 @@ MAX_FILE_SIZE = 100 * 1024 * 1024  # 100MB
 console = Console()
 lock=threading.Lock()
 mock=Lock()
+data_lock=Lock()
+alert_lock=Lock()
 krack_monitor = {}
 evil_twin_detections = {}
 flows = {}
@@ -109,10 +115,11 @@ def start_sniffing(iface_name):
 	suppress_scapy_warnings()
 	with lock:
 		packets_data.clear()
-	seen_packets.clear()
-	packet_buffer.clear()
-	tcp_count = udp_count = arp_count = icmp_count = raw_count = dns_count = total_count = 0
-	stats.update({'total':0, 'tcp':0, 'udp':0, 'icmp':0, 'arp':0, 'dns':0,'wlan':0})
+		seen_packets.clear()
+		packet_buffer.clear()
+		tcp_count = udp_count = arp_count = icmp_count = raw_count = dns_count = total_count = https_count = 0
+		wlan_count = 0
+		stats.update({'total':0, 'tcp':0, 'udp':0, 'icmp':0, 'arp':0, 'dns':0,'https':0,'wlan':0})
 	stop_stats=False
 	stop_sniff=False
 	if iface_name.startswith(('wlan', 'wlp', 'wlx')):
@@ -359,7 +366,7 @@ def disable_monitor_mode(iface):
 		print(Fore.RED + f"Error disabling monitor mode: {e}")
 		return False
 def render_table():
-	global lock,packets_data,stat,monitoring_type
+	global lock,packets_data,stats,monitoring_type
 	terminal_size = shutil.get_terminal_size((80,30))
 	max_rows_screen = terminal_size.lines - 8
 	if monitoring_type=="local":
@@ -524,6 +531,7 @@ def trigger_alert(message):
 			if message not in alerts_shown:
 				alerts.append(message)
 				alerts_shown.add(message)
+				logging.warning(message)
 		play_alert_sound()
 		last_alert_time = current_time
 def log_alert(attack_type, src_ip, detail=""):
@@ -560,6 +568,7 @@ def detect_arp_spoofing(pkt):
 			trigger_alert(alert_msg)
 			log_alert(Fore.RED + "ARP_Spoof", src_ip, f"claimed {src_mac}, prev {arp_table[src_ip]}")
 			log_attack("ARP_Spoof", alert_msg)
+			logging.error("ARP Spoofing detected from IP: " + src_ip + " with MAC: " + src_mac)
 			last_syn_alert_time[src_ip] = time.time()
 	else:
 		arp_table[src_ip] = src_mac
@@ -639,6 +648,7 @@ def detect_dns_spoofing(pkt):
 			trigger_alert(alert_msg)
 			log_alert("DNS_Spoof", src_ip, f"{qname} -> {rdata_str}")
 			log_attack("DNS_Spoof", alert_msg)
+			logging.error("DNS Spoofing detected: " + qname + " from " + src_ip + " with value " + rdata_str)
 			return
 		total_conflicting_sources = set()
 		for val, meta in records.items():
@@ -651,6 +661,7 @@ def detect_dns_spoofing(pkt):
 			trigger_alert(alert_msg)
 			log_alert("DNS_Spoof", src_ip, f"{qname} -> {rdata_str}")
 			log_attack("DNS_Spoof", alert_msg)
+			logging.error("DNS Spoofing detected from multiple sources: " + str(total_conflicting_sources) + " for domain " + qname)
 			return
 	except Exception:
 		return
@@ -670,6 +681,7 @@ def detect_syn_flood(pkt):
 				trigger_alert(alert_msg)
 				log_alert("SYN_Flood", src_ip, f"{len(syn_packets[src_ip])} SYNs")
 				log_attack("SYN_Flood", alert_msg)
+				logging.error("SYN Flood detected from IP: " + src_ip + " with " + str(len(syn_packets[src_ip])) + " packets")
 def detect_udp_flood(pkt):
 	if pkt.haslayer(UDP):
 		src_ip = pkt[IP].src
@@ -683,6 +695,8 @@ def detect_udp_flood(pkt):
 			trigger_alert(alert_msg)
 			log_alert("UDP_Flood", src_ip, f"{len(udp_packets[src_ip])} packets")
 			log_attack("UDP_Flood", alert_msg)
+			logging.error("UDP Flood detected from IP: " + src_ip + " with " + str(len(udp_packets[src_ip])) + " packets")
+			logging.error("UDP Flood detected from IP: " + src_ip + " with " + str(len(udp_packets[src_ip])) + " packets")
 def detect_icmp_flood(pkt):
 	if pkt.haslayer(ICMP):
 		src_ip = pkt[IP].src
@@ -696,6 +710,8 @@ def detect_icmp_flood(pkt):
 			trigger_alert(alert_msg)
 			log_alert("ICMP_Flood", src_ip, f"{len(icmp_packets[src_ip])} packets")
 			log_attack("ICMP_Flood", alert_msg)
+			logging.error("ICMP Flood detected from IP: " + src_ip + " with " + str(len(icmp_packets[src_ip])) + " packets")
+			logging.error("ICMP Flood detected from IP: " + src_ip + " with " + str(len(icmp_packets[src_ip])) + " packets")
 def detect_port_scan(pkt):
 	if not (pkt.haslayer(TCP) and pkt.haslayer(IP)):
 		return
@@ -723,6 +739,7 @@ def detect_port_scan(pkt):
 		trigger_alert(alert_msg)
 		log_alert("Port_Scan", src_ip, f"Scanned ports: {sorted(list(ports))}")
 		log_attack("Port_Scan", alert_msg)
+		logging.warning("Port Scan detected from IP: " + src_ip + " scanning " + str(len(ports)) + " ports")
 		scan_attempts[src_ip] = {'ports': set(), 'start_time': current_time}  # reset after alert
 	if time_window > 10:
 		scan_attempts[src_ip] = {'ports': set(), 'start_time': current_time}
@@ -734,6 +751,7 @@ def detect_deauth(pkt):
 		trigger_alert(alert_msg)
 		log_alert("Deauth", src, f"target:{dst}")
 		log_attack("Deauth", alert_msg)
+		logging.error("Deauthentication attack detected from MAC: " + src + " targeting " + dst)
 def detect_beacon_flood(pkt):
 	if not pkt.haslayer(Dot11Beacon):
 		return
@@ -745,6 +763,7 @@ def detect_beacon_flood(pkt):
 		trigger_alert(alert_msg)
 		log_alert("BeaconFlood", bssid, f"SSID:{ssid}")
 		log_attack("BeaconFlood", alert_msg)
+		logging.error("Beacon Flood / Fake AP detected for SSID: " + ssid + " BSSID change: " + prev + " -> " + bssid)
 	else:
 		beacon_cache[ssid] = bssid
 def detect_probe_flood(pkt):
@@ -757,6 +776,7 @@ def detect_probe_flood(pkt):
 		trigger_alert(alert_msg)
 		log_alert("ProbeFlood", src, f"count:{probe_count[src]}")
 		log_attack("ProbeFlood", alert_msg)
+		logging.error("Probe Request Flood detected from MAC: " + src + " with count: " + str(probe_count[src]))
 def detect_handshake(pkt):
 	if pkt.haslayer(EAPOL):
 		src = (pkt.addr2 or "").lower()
@@ -782,6 +802,7 @@ def detect_krack_attack(pkt):
 			trigger_alert(alert_msg)
 			log_alert("KRACK_Attack", src_mac, f"replay_count:{krack_monitor[src_mac]['count']}")
 			log_attack("KRACK_Attack", alert_msg)
+			logging.error("KRACK attack detected from MAC: " + src_mac + " with " + str(krack_monitor[src_mac]['count']) + " replayed keys")
 		else:
 			krack_monitor[src_mac]['last_counter'] = eapol.key_replay_counter
 			krack_monitor[src_mac]['count']=0
@@ -831,27 +852,32 @@ def analyzer(pkt):
 				sport, dport = pkt[TCP].sport, pkt[TCP].dport
 				if sport == 443 or dport == 443:
 					proto, info = "HTTPS", "Encrypted TLS traffic"
-					https_count+=1
-					stats["https"]=https_count
+					with lock:
+						https_count += 1
+						stats["https"] = https_count
 				else:
 					proto = "TCP"
-				tcp_count += 1
-				stats["tcp"]=tcp_count
+				with lock:
+					tcp_count += 1
+					stats["tcp"] = tcp_count
 		elif pkt.haslayer(UDP):
 			proto = "UDP"
 			sport, dport = pkt[UDP].sport, pkt[UDP].dport
-			udp_count += 1
-			stats["udp"]=udp_count
+			with lock:
+				udp_count += 1
+				stats["udp"] = udp_count
 		elif pkt.haslayer(ICMP):
 			proto = "ICMP"
-			icmp_count += 1
-			stats["icmp"]=icmp_count
+			with lock:
+				icmp_count += 1
+				stats["icmp"] = icmp_count
 		elif pkt.haslayer(ARP):
 			proto = "ARP"
 			src_ip = pkt[ARP].psrc
 			dst_ip = pkt[ARP].pdst
-			arp_count += 1
-			stats["arp"]=arp_count
+			with lock:
+				arp_count += 1
+				stats["arp"] = arp_count
 		if pkt.haslayer(DNS):
 			proto = "DNS"
 			try:
@@ -860,15 +886,18 @@ def analyzer(pkt):
 					info = f"DNS Query: {dns_query}"
 			except:
 				info = "DNS Packet"
-			dns_count+=1
-			stats["dns"]=dns_count
+			with lock:
+				dns_count += 1
+				stats["dns"] = dns_count
 		elif pkt.haslayer(Raw) and not info:
 			info = safe_payload_display(pkt[Raw].load)
 			if proto == "OTHER":
 				proto = "RAW"
-			raw_count += 1
-		total_count += 1
-		stats["total"]=total_count
+			with lock:
+				raw_count += 1
+		with lock:
+			total_count += 1
+			stats["total"] = total_count
 		row = {
 			"time": timestamp,
 			"proto": proto,
@@ -920,11 +949,13 @@ def analyzer(pkt):
 def handle_wireless_packet(pkt):
 	"""Handle 802.11 wireless packets in monitor mode"""
 	global total_count, stats, packets_data,lock,wlan_count,target_bssid,target_ssid
-	total_count += 1
-	stats["total"] = total_count    
+	with lock:
+		total_count += 1
+		stats["total"] = total_count    
 	if pkt.haslayer(Dot11):
-		wlan_count+=1
-		stats["wlan"]=wlan_count
+		with lock:
+			wlan_count += 1
+			stats["wlan"] = wlan_count
 		dot11 = pkt[Dot11]
 		proto = "WLAN"
 		info = ""        
@@ -990,6 +1021,9 @@ def handle_wireless_packet(pkt):
 				pcap_queue.put_nowait(pkt)
 			except queue.Full:
 				pass
+
+ensure_directories()
+os.system("clear")
 
 logo =(Fore.RED + r"""
 		   ....                                                            
@@ -1058,10 +1092,10 @@ while True:
 		file_thread=None
 		with lock:
 			packets_data.clear()
-		seen_packets.clear()
-		packet_buffer.clear()
-		tcp_count = udp_count = arp_count = icmp_count = https_count = raw_count = dns_count = total_count = 0
-		stats = {'total':0, 'tcp':0, 'udp':0, 'icmp':0, 'arp':0,'https':0, 'dns':0,'wlan':0}
+			seen_packets.clear()
+			packet_buffer.clear()
+			tcp_count = udp_count = arp_count = icmp_count = https_count = raw_count = dns_count = total_count = 0
+			stats = {'total':0, 'tcp':0, 'udp':0, 'icmp':0, 'arp':0,'https':0, 'dns':0,'wlan':0}
 		if save=="Y":
 			fmt = input(Fore.RED + Style.BRIGHT+ "Choose format to save [log/pcap] (pcap If you want to analyze the file in Wireshark): "+ Style.RESET_ALL).strip().lower()
 			if fmt=="":
@@ -1117,9 +1151,11 @@ while True:
 		file_thread=None
 		with lock:
 			packets_data.clear()
-		seen_packets.clear()
-		packet_buffer.clear()
-		stats = {'total':0, 'tcp':0, 'udp':0, 'icmp':0, 'arp':0,'https':0, 'dns':0,'wlan':0}
+			seen_packets.clear()
+			packet_buffer.clear()
+			tcp_count = udp_count = arp_count = icmp_count = https_count = raw_count = dns_count = total_count = 0
+			wlan_count = 0
+			stats = {'total':0, 'tcp':0, 'udp':0, 'icmp':0, 'arp':0,'https':0, 'dns':0,'wlan':0}
 		if save=="Y":
 			fmt = input(Fore.RED + Style.BRIGHT + "Choose format to save [log/pcap] (pcap If you want to analyze the file in Wireshark): "+ Style.RESET_ALL).strip().lower()
 			if fmt=="":
