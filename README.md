@@ -107,7 +107,6 @@ sudo python3 main.py
 - *Developer* *&* *Cybersecurity Enthusiast*
 - *📍* *Morocco*
 
-## 🫡 If you encounter any problem or error, please contact me.
 
 ## ⭐ If you like this project, give it a star on GitHub to support Cyber Guard!
 
